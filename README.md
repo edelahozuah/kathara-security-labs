@@ -58,13 +58,32 @@ Este repositorio contiene los escenarios de red empleados en las prácticas de l
 
 ## Estructura
 
-- `practica2/escenario1/` - Topología básica (h1-h4, r1-r2)
-- `practica2/escenario2/` - Escenario de ataque
-- `practica3/escenario1/` - Configuración de firewall
+El repositorio está organizado por prácticas, donde cada práctica contiene uno o más escenarios:
 
-Cada escenario contiene:
-- `original/` - Ficheros XML originales de VNX
-- `kathara/` - Implementación en Kathara (lab.conf, .startup, scripts)
+```
+practicaX/
+├── escenario1/
+│   ├── original/     # Ficheros XML originales de VNX
+│   └── kathara/      # Implementación en Kathara
+│       ├── lab.conf
+│       ├── *.startup
+│       ├── Dockerfile.*
+│       └── docs/     # Documentación específica
+├── escenario2/
+│   └── ...
+└── ...
+```
+
+### Prácticas disponibles
+
+#### `practica2/` - Introducción a Kathara
+**Objetivo**: Familiarización con la herramienta de emulación de redes Kathara
+- `escenario1/` - Topología básica con múltiples hosts y routers (h1-h4, r1-r2)
+- `escenario2/` - Escenario con elementos de red más complejos
+
+#### `practica3/` - Ataques Man-in-the-Middle (AiTM) en LAN
+**Objetivo**: Practicar ataques de intermediario en redes de área local sobre tráfico HTTP
+- `escenario1/` - Escenario completo con víctima (GUI), atacante (Kali), servidor DNS y acceso VPN opcional
 
 ## Uso
 
