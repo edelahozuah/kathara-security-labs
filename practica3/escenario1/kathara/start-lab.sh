@@ -11,7 +11,7 @@ usage() {
     echo "Uso: $0 [opciones]"
     echo ""
     echo "Opciones:"
-    echo "  --cli-only       Modo solo CLI (sin VPN ni escritorio)"
+    echo "  --cli-only       Modo solo CLI (sin VPN ni escritorio, incluye DNS)"
     echo "  --force-proxy    Forzar uso de proxy UDP local"
     echo "  -h, --help       Mostrar ayuda"
     exit 0
@@ -95,8 +95,8 @@ kathara lclean -d "$SCRIPT_DIR" 2>/dev/null || true
 # Start the lab
 echo "[2/6] Iniciando laboratorio..."
 if [[ "$CLI_ONLY" == true ]]; then
-    echo "  Modo: CLI-only (victima, atacante, router, natgw)"
-    kathara lstart -d "$SCRIPT_DIR" victima atacante router natgw
+    echo "  Modo: CLI-only (victima, atacante, dns, router, natgw)"
+    kathara lstart -d "$SCRIPT_DIR" victima atacante dns router natgw
 else
     echo "  Modo: Completo (incluye VPN y escritorio)"
     kathara lstart -d "$SCRIPT_DIR"

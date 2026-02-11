@@ -97,6 +97,15 @@ echo "[5/6] Verificando DNS..."
 check_cmd victima "nslookup google.com" "victima DNS"
 check_cmd atacante "nslookup google.com" "atacante DNS"
 
+# 5.5 Check DNS server (if dns node exists)
+if kathara list 2>/dev/null | grep -q "dns"; then
+    echo ""
+    echo "[5.5/6] Verificando servidor DNS local..."
+    check_cmd dns "pgrep dnsmasq" "dnsmasq ejecutandose"
+    check_cmd dns "nslookup google.com 127.0.0.1" "DNS local resolviendo"
+    check_cmd victima "cat /etc/resolv.conf | grep '192.168.0.53'" "victima usa DNS local"
+fi
+
 # 6. Check WireGuard (if vpn node exists)
 if kathara list 2>/dev/null | grep -q "vpn"; then
     echo ""
