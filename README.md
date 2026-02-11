@@ -1,9 +1,5 @@
 # Laboratorios de Seguridad con Kathara
 
-[![UAH](https://img.shields.io/badge/Universidad-Alcalá-red)](https://www.uah.es/)
-[![Grado](https://img.shields.io/badge/Grado-Ingeniería%20Informática-blue)](https://www.uah.es/es/estudios/estudios-oficiales-grado/ingenieria-informatica/)
-[![Asignatura](https://img.shields.io/badge/Asignatura-Seguridad-orange)](https://www.uah.es/)
-
 [![Multi-Arch](https://img.shields.io/badge/arquitectura-x86__64%20%7C%20ARM64-success)](https://github.com/edelahozuah/kathara-security-labs)
 [![Docker](https://img.shields.io/badge/Docker-Soportado-blue?logo=docker)](https://www.docker.com/)
 [![Kathara](https://img.shields.io/badge/Kathara-v2.0+-blueviolet)](https://www.kathara.org/)
@@ -12,7 +8,12 @@
 [![GitHub last commit](https://img.shields.io/github/last-commit/edelahozuah/kathara-security-labs)](https://github.com/edelahozuah/kathara-security-labs/commits/main)
 [![GitHub repo size](https://img.shields.io/github/repo-size/edelahozuah/kathara-security-labs)](https://github.com/edelahozuah/kathara-security-labs)
 
-Repositorio de prácticas de laboratorio de la asignatura **Seguridad** del Grado en Ingeniería Informática de la Universidad de Alcalá.
+**Universidad de Alcalá**
+
+Repositorio de prácticas de laboratorio de la asignatura **Seguridad** para los grados:
+- Grado en Ingeniería Informática
+- Grado en Ingeniería Telemática
+- Grado en Ingeniería de Computadores
 
 ## Autor
 
