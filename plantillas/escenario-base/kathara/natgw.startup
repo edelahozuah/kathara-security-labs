@@ -1,0 +1,40 @@
+#!/bin/bash
+set -e
+
+WAN_GW_CIDR="${WAN_GW_CIDR:-10.255.0.1/30}"
+WAN_ROUTER_IP="${WAN_ROUTER_IP:-10.255.0.2}"
+LAN_NET="${LAN_NET:-192.168.0.0/24}"
+NAT_NETS="${NAT_NETS:-${LAN_NET}}"
+
+ip addr flush dev eth0
+ip addr add "${WAN_GW_CIDR}" dev eth0
+ip link set eth0 up
+
+UPLINK_IF="${UPLINK_IF:-}"
+if [ -z "${UPLINK_IF}" ]; then
+  UPLINK_IF="$(ip route show default | awk 'NR==1 {print $5}')"
+fi
+if [ -z "${UPLINK_IF}" ] || [ "${UPLINK_IF}" = "eth0" ]; then
+  UPLINK_IF="eth1"
+fi
+ip link set "${UPLINK_IF}" up || true
+
+IFS=',' read -r -a NAT_NET_ARRAY <<< "${NAT_NETS// /}"
+for net in "${NAT_NET_ARRAY[@]}"; do
+  [ -z "${net}" ] && continue
+
+  ip route replace "${net}" via "${WAN_ROUTER_IP}" dev eth0
+
+  iptables -t nat -C POSTROUTING -s "${net}" -o "${UPLINK_IF}" -j MASQUERADE 2>/dev/null || \
+  iptables -t nat -A POSTROUTING -s "${net}" -o "${UPLINK_IF}" -j MASQUERADE
+
+  iptables -C FORWARD -i eth0 -o "${UPLINK_IF}" -s "${net}" -j ACCEPT 2>/dev/null || \
+  iptables -A FORWARD -i eth0 -o "${UPLINK_IF}" -s "${net}" -j ACCEPT
+
+  iptables -C FORWARD -i "${UPLINK_IF}" -o eth0 -d "${net}" -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT 2>/dev/null || \
+  iptables -A FORWARD -i "${UPLINK_IF}" -o eth0 -d "${net}" -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
+done
+
+if [ "$(cat /proc/sys/net/ipv4/ip_forward)" != "1" ]; then
+  echo "WARNING: net.ipv4.ip_forward no esta habilitado en natgw" >&2
+fi

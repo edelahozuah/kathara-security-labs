@@ -1,0 +1,39 @@
+FROM kathara/base
+
+ENV DEBIAN_FRONTEND=noninteractive
+ENV USER=root
+ENV HOME=/root
+
+RUN printf 'wireshark-common wireshark-common/install-setuid boolean false\n' | debconf-set-selections && \
+    apt-get update && apt-get install -y --no-install-recommends \
+    tigervnc-standalone-server \
+    tigervnc-viewer \
+    lxqt \
+    openbox \
+    qterminal \
+    pcmanfm-qt \
+    featherpad \
+    firefox-esr \
+    wireshark \
+    net-tools \
+    iputils-ping \
+    curl \
+    wget \
+    dnsutils \
+    dbus-x11 \
+    procps \
+    htop \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
+
+RUN mkdir -p /root/.vnc && \
+    echo "password" | vncpasswd -f > /root/.vnc/passwd && \
+    chmod 600 /root/.vnc/passwd
+
+RUN echo '#!/bin/bash\n\
+unset SESSION_MANAGER\n\
+unset DBUS_SESSION_BUS_ADDRESS\n\
+exec startlxqt' > /root/.vnc/xstartup && \
+    chmod +x /root/.vnc/xstartup
+
+EXPOSE 5901

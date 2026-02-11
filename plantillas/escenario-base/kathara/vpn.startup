@@ -1,0 +1,87 @@
+#!/bin/bash
+set -euo pipefail
+
+WG_IF="${WG_IF:-wg0}"
+WG_PORT="${WG_PORT:-51820}"
+WG_SERVER_CIDR="${WG_SERVER_CIDR:-10.99.0.1/24}"
+WG_CLIENT_CIDR="${WG_CLIENT_CIDR:-10.99.0.2/32}"
+WG_ALLOWED_IPS="${WG_ALLOWED_IPS:-192.168.0.0/24}"
+WG_CLIENT_NAME="${WG_CLIENT_NAME:-student1}"
+WG_ENDPOINT="${WG_ENDPOINT:-CHANGE_ME_HOST_OR_DNS}"
+
+VPN_LAN_CIDR="${VPN_LAN_CIDR:-192.168.0.4/24}"
+LAN_NET="${LAN_NET:-192.168.0.0/24}"
+WG_NET="${WG_NET:-10.99.0.0/24}"
+VPN_ACCESS_NETS="${VPN_ACCESS_NETS:-${LAN_NET}}"
+
+KEY_DIR="${KEY_DIR:-/shared/vpn}"
+SERVER_PRIV="${KEY_DIR}/server_private.key"
+SERVER_PUB="${KEY_DIR}/server_public.key"
+CLIENT_PRIV="${KEY_DIR}/${WG_CLIENT_NAME}_private.key"
+CLIENT_PUB="${KEY_DIR}/${WG_CLIENT_NAME}_public.key"
+CLIENT_CONF="${KEY_DIR}/${WG_CLIENT_NAME}.conf"
+
+mkdir -p "${KEY_DIR}"
+chmod 700 "${KEY_DIR}"
+umask 077
+
+if [ ! -s "${SERVER_PRIV}" ]; then
+  wg genkey | tee "${SERVER_PRIV}" | wg pubkey > "${SERVER_PUB}"
+fi
+
+if [ ! -s "${CLIENT_PRIV}" ]; then
+  wg genkey | tee "${CLIENT_PRIV}" | wg pubkey > "${CLIENT_PUB}"
+fi
+
+SERVER_PUB_KEY="$(cat "${SERVER_PUB}")"
+CLIENT_PUB_KEY="$(cat "${CLIENT_PUB}")"
+CLIENT_PRIV_KEY="$(cat "${CLIENT_PRIV}")"
+
+ip addr flush dev eth0
+ip addr add "${VPN_LAN_CIDR}" dev eth0
+ip link set eth0 up
+
+ip link del "${WG_IF}" >/dev/null 2>&1 || true
+if ! ip link add dev "${WG_IF}" type wireguard >/dev/null 2>&1; then
+  wireguard-go "${WG_IF}" >/dev/null 2>&1 || true
+fi
+
+if ! ip link show "${WG_IF}" >/dev/null 2>&1; then
+  echo "ERROR: no se pudo crear la interfaz ${WG_IF}" >&2
+  exit 1
+fi
+
+wg set "${WG_IF}" listen-port "${WG_PORT}" private-key "${SERVER_PRIV}"
+wg set "${WG_IF}" peer "${CLIENT_PUB_KEY}" allowed-ips "${WG_CLIENT_CIDR}"
+ip addr add "${WG_SERVER_CIDR}" dev "${WG_IF}"
+ip link set "${WG_IF}" up
+
+iptables -t nat -C POSTROUTING -s "${WG_NET}" -o eth0 -j MASQUERADE 2>/dev/null || \
+iptables -t nat -A POSTROUTING -s "${WG_NET}" -o eth0 -j MASQUERADE
+
+IFS=',' read -r -a ACCESS_NET_ARRAY <<< "${VPN_ACCESS_NETS// /}"
+for access_net in "${ACCESS_NET_ARRAY[@]}"; do
+  [ -z "${access_net}" ] && continue
+
+  iptables -C FORWARD -i "${WG_IF}" -o eth0 -s "${WG_NET}" -d "${access_net}" -j ACCEPT 2>/dev/null || \
+  iptables -A FORWARD -i "${WG_IF}" -o eth0 -s "${WG_NET}" -d "${access_net}" -j ACCEPT
+
+  iptables -C FORWARD -i eth0 -o "${WG_IF}" -s "${access_net}" -d "${WG_NET}" -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT 2>/dev/null || \
+  iptables -A FORWARD -i eth0 -o "${WG_IF}" -s "${access_net}" -d "${WG_NET}" -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
+done
+
+cat > "${CLIENT_CONF}" <<EOF
+[Interface]
+PrivateKey = ${CLIENT_PRIV_KEY}
+Address = ${WG_CLIENT_CIDR}
+
+[Peer]
+PublicKey = ${SERVER_PUB_KEY}
+Endpoint = ${WG_ENDPOINT}:${WG_PORT}
+AllowedIPs = ${WG_ALLOWED_IPS}
+PersistentKeepalive = 25
+EOF
+chmod 600 "${CLIENT_CONF}"
+
+echo "WireGuard listo. Config cliente: ${CLIENT_CONF}"
+echo "Conecta VNC a 192.168.0.5:5901 tras levantar la VPN."

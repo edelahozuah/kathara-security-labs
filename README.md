@@ -80,6 +80,10 @@ despliegue-docente/
 ├── scripts/           # Automatización para despliegue masivo docente
 ├── config/            # Asignación de puertos, IPs y parámetros por grupo
 └── docs/              # Guía operativa del despliegue centralizado
+
+plantillas/
+└── escenario-base/
+    └── kathara/       # Plantilla de inicio (VPN + VNC + NAT + nodo base)
 ```
 
 ### Prácticas disponibles
@@ -102,6 +106,14 @@ cd practica2/escenario1/kathara
 ./stop-lab.sh
 ```
 
+Crear un escenario nuevo desde plantilla:
+
+```bash
+cp -R plantillas/escenario-base/kathara practicaX/escenarioY/kathara
+cd practicaX/escenarioY/kathara
+chmod +x *.sh *.startup
+```
+
 ## 📚 Documentación / Documentation
 
 ### Documentación general del repositorio
@@ -110,6 +122,7 @@ cd practica2/escenario1/kathara
 - **[INSTALL.md](INSTALL.md)** - Referencia de instalación (apunta a documentación oficial)
 - **[Kathara Installation Guides](https://github.com/KatharaFramework/Kathara/wiki/Installation-Guides)** - Guía oficial de instalación
 - **[despliegue-docente/docs/DESPLIEGUE_DOCENTE.md](despliegue-docente/docs/DESPLIEGUE_DOCENTE.md)** - Despliegue docente centralizado
+- **[plantillas/escenario-base/kathara/README.md](plantillas/escenario-base/kathara/README.md)** - Plantilla base para nuevos escenarios
 
 ### Documentación por escenario
 

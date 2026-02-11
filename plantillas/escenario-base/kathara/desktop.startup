@@ -1,0 +1,31 @@
+#!/bin/bash
+set -e
+
+export USER=root
+export HOME=/root
+
+mkdir -p /root/.config/lxqt
+cat > /root/.config/lxqt/session.conf <<'EOF'
+[General]
+__userfile__=true
+window_manager=openbox
+EOF
+
+cat > /root/.config/lxqt/lxqt.conf <<'EOF'
+[General]
+__userfile__=true
+theme=dark
+icon_theme=Adwaita
+single_click_activate=false
+EOF
+
+ip addr flush dev eth0
+ip addr add "${DESKTOP_CIDR:-192.168.0.5/24}" dev eth0
+ip link set eth0 up
+ip route replace default via "${LAN_GW:-192.168.0.1}" dev eth0
+
+echo "nameserver 8.8.8.8" > /etc/resolv.conf
+echo "nameserver 8.8.4.4" >> /etc/resolv.conf
+
+vncserver -kill :1 >/dev/null 2>&1 || true
+vncserver :1 -geometry 1280x800 -depth 24 -name desktop
