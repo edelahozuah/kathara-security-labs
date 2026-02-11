@@ -5,8 +5,8 @@ Navigation / Navegación: [Index](INDEX.md) | [Guide](README.md) | [Quickstart](
 ## Índice
 
 1. [Descripción del escenario](#descripcion-del-escenario)
-2. [Requisitos](#requisitos)
-3. [Instalación](#instalacion)
+2. [Prerrequisitos comunes](#prerrequisitos-comunes)
+3. [Preparación del escenario](#preparacion-del-escenario)
 4. [Uso](#uso)
 5. [Flujo de trabajo MITM](#flujo-de-trabajo-mitm)
 6. [Troubleshooting](#troubleshooting)
@@ -37,16 +37,16 @@ Este escenario Kathara reproduce la **Práctica 3 MITM HTTP** originalmente dise
 | **natgw** | Salida a Internet | NAT + interfaz bridged |
 | **vpn** | Acceso remoto | WireGuard server para conexión segura |
 
-## Requisitos
+## Prerrequisitos comunes
 
-### Software necesario
+La instalacion de herramientas (Kathara, Docker, WireGuard y cliente VNC)
+se documenta de forma comun para todo el repositorio:
 
-- **Docker** (con Docker Compose opcional)
-- **Kathara Framework** (`pip install kathara`)
-- **Cliente WireGuard** (macOS/Windows/Linux)
-- **Cliente VNC** (TigerVNC, RealVNC, etc.)
+- [`../../../../INSTALL.md`](../../../../INSTALL.md)
+- [`../../../../README.md`](../../../../README.md)
+- [`../../../../USO.md`](../../../../USO.md)
 
-### Requisitos de red
+### Requisitos especificos de este escenario
 
 - Puerto UDP 51820 disponible (WireGuard)
 - Conexión a Internet para descargar imágenes
@@ -59,7 +59,7 @@ Este escenario Kathara reproduce la **Práctica 3 MITM HTTP** originalmente dise
 | Disco | 5 GB libres | 10 GB libres |
 | CPU | 2 cores | 4 cores |
 
-## Instalación
+## Preparación del escenario
 
 ### 1. Clonar/Descargar el escenario
 
@@ -87,17 +87,10 @@ Hacer ejecutables los scripts de gestión:
 chmod +x *.startup *.sh
 ```
 
-### 4. Verificar instalación
+### 4. Verificar el escenario
 
 ```bash
-# Verificar Docker
-docker --version
-
-# Verificar Kathara
-kathara --version
-
-# Verificar WireGuard
-wg --version
+./verify.sh --wait-for-handshake 30
 ```
 
 ## Uso
@@ -392,7 +385,7 @@ ls ./shared/
 - [Kathara Documentation](https://github.com/KatharaFramework/Kathara/wiki)
 - [WireGuard Documentation](https://www.wireguard.com/)
 - [Ettercap Documentation](https://www.ettercap-project.org/)
-- [Práctica original VNX](../practica3.xml)
+- [Práctica original VNX](../../original/practica3.xml)
 
 ## Licencia
 

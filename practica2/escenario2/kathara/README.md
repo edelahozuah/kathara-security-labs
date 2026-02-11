@@ -33,6 +33,7 @@ chmod +x start-lab.sh stop-lab.sh verify.sh
 
 ## Documentation / Documentacion
 
+- Common prerequisites and tool installation: `../../../INSTALL.md`, `../../../README.md`, `../../../USO.md`
 - Docs index: `docs/INDEX.md`
 - Full guide: `docs/README.md`
 - Quick commands: `docs/QUICKSTART.md`

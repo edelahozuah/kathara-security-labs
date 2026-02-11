@@ -1,13 +1,13 @@
 # Documentation Index / Índice de Documentación
 
-Navigation / Navegación: [Index](INDEX.md) | [Install](INSTALL.md) | [Usage](../../USO.md) | [Guide](README.md) | [Quickstart](QUICKSTART.md) | [Architecture](ARCHITECTURE.md) | [Network](NETWORK.md) | [Examples](EXAMPLES.md) | [Docker](DOCKER.md)
+Navigation / Navegación: [Index](INDEX.md) | [Install](../../../../INSTALL.md) | [Usage](../../../../USO.md) | [Guide](README.md) | [Quickstart](QUICKSTART.md) | [Architecture](ARCHITECTURE.md) | [Network](NETWORK.md) | [Examples](EXAMPLES.md) | [Docker](DOCKER.md)
 
 ## Español
 
 ### Mapa rápido
 
-- **Instalación de Kathara:** `INSTALL.md` ⭐ **Empezar aquí**
-- **¿Cómo usar este escenario? Docente vs Estudiante:** [`../../USO.md`](../../USO.md) ⚡ **Importante** (documentación general)
+- **Instalación de Kathara:** [`../../../../INSTALL.md`](../../../../INSTALL.md) ⭐ **Empezar aquí**
+- **¿Cómo usar este escenario? Docente vs Estudiante:** [`../../../../USO.md`](../../../../USO.md) ⚡ **Importante** (documentación general)
 - Vista general del escenario: `README.md`
 - Arranque en 2 minutos: `QUICKSTART.md`
 - Arquitectura y flujos (VPN/VNC/MITM): `ARCHITECTURE.md`
@@ -17,8 +17,8 @@ Navigation / Navegación: [Index](INDEX.md) | [Install](INSTALL.md) | [Usage](..
 
 ### Según lo que necesitas
 
-- **Primera vez / Necesito instalar Kathara:** `INSTALL.md`
-- **No sé si usar VPN o no / Soy docente o estudiante:** [`../../USO.md`](../../USO.md) (documentación general del repositorio)
+- **Primera vez / Necesito instalar Kathara:** [`../../../../INSTALL.md`](../../../../INSTALL.md)
+- **No sé si usar VPN o no / Soy docente o estudiante:** [`../../../../USO.md`](../../../../USO.md) (documentación general del repositorio)
 - Quiero arrancar ya: `QUICKSTART.md`
 - Quiero entender cómo funciona todo: `README.md`
 - Quiero depurar conectividad: `NETWORK.md`
@@ -28,8 +28,8 @@ Navigation / Navegación: [Index](INDEX.md) | [Install](INSTALL.md) | [Usage](..
 
 ### Flujo recomendado
 
-1. `INSTALL.md` (si es primera vez)
-2. [`../../USO.md`](../../USO.md) (determinar si usar VPN: docente vs estudiante)
+1. [`../../../../INSTALL.md`](../../../../INSTALL.md) (si es primera vez)
+2. [`../../../../USO.md`](../../../../USO.md) (determinar si usar VPN: docente vs estudiante)
 3. `QUICKSTART.md`
 4. `README.md`
 5. `EXAMPLES.md` (prácticas MITM)
@@ -41,8 +41,8 @@ Navigation / Navegación: [Index](INDEX.md) | [Install](INSTALL.md) | [Usage](..
 
 ### Quick map
 
-- **Kathara Installation:** `INSTALL.md` ⭐ **Start here**
-- **How to use? Teacher vs Student:** [`../../USO.md`](../../USO.md) ⚡ **Important** (general repository documentation)
+- **Kathara Installation:** [`../../../../INSTALL.md`](../../../../INSTALL.md) ⭐ **Start here**
+- **How to use? Teacher vs Student:** [`../../../../USO.md`](../../../../USO.md) ⚡ **Important** (general repository documentation)
 - Scenario overview: `README.md`
 - Start in 2 minutes: `QUICKSTART.md`
 - Architecture and flows (VPN/VNC/MITM): `ARCHITECTURE.md`
@@ -52,8 +52,8 @@ Navigation / Navegación: [Index](INDEX.md) | [Install](INSTALL.md) | [Usage](..
 
 ### By intent
 
-- **First time / I need to install Kathara:** `INSTALL.md`
-- **Don't know if I should use VPN / Teacher or Student:** [`../../USO.md`](../../USO.md) (general repository documentation)
+- **First time / I need to install Kathara:** [`../../../../INSTALL.md`](../../../../INSTALL.md)
+- **Don't know if I should use VPN / Teacher or Student:** [`../../../../USO.md`](../../../../USO.md) (general repository documentation)
 - I want to start now: `QUICKSTART.md`
 - I want full context: `README.md`
 - I need connectivity troubleshooting: `NETWORK.md`
@@ -63,8 +63,8 @@ Navigation / Navegación: [Index](INDEX.md) | [Install](INSTALL.md) | [Usage](..
 
 ### Suggested reading order
 
-1. `INSTALL.md` (if first time)
-2. [`../../USO.md`](../../USO.md) (determine whether to use VPN: teacher vs student)
+1. [`../../../../INSTALL.md`](../../../../INSTALL.md) (if first time)
+2. [`../../../../USO.md`](../../../../USO.md) (determine whether to use VPN: teacher vs student)
 3. `QUICKSTART.md`
 4. `README.md`
 5. `EXAMPLES.md` (MITM practices)

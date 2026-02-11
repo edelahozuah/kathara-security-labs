@@ -48,14 +48,16 @@ graph TD
 | `vpn` | `192.168.0.4/24`, `10.99.0.1/24` | `kathara-vpn` | `256m` | Servidor WireGuard |
 | `desktop` | `192.168.0.5/24` | `kathara-desktop` | `1024m` | LXQt + VNC |
 
-## 4. Requisitos
+## 4. Prerrequisitos comunes
 
-- Docker funcionando
-- Kathara instalado y operativo
-- Cliente WireGuard en el host
-- Cliente VNC (TigerVNC, RealVNC, etc.)
+La instalacion de herramientas y requisitos generales se mantienen en la
+documentacion comun del repositorio:
 
-## 5. Instalacion
+- [`../../../../INSTALL.md`](../../../../INSTALL.md)
+- [`../../../../README.md`](../../../../README.md)
+- [`../../../../USO.md`](../../../../USO.md)
+
+## 5. Preparacion del escenario
 
 Desde `kathara_migration_p2_2`:
 
@@ -248,14 +250,16 @@ graph TD
 | `vpn` | `192.168.0.4/24`, `10.99.0.1/24` | `kathara-vpn` | `256m` | WireGuard server |
 | `desktop` | `192.168.0.5/24` | `kathara-desktop` | `1024m` | LXQt + VNC |
 
-## 4. Requirements
+## 4. Common prerequisites
 
-- Docker running correctly
-- Kathara installed and working
-- WireGuard client on host
-- VNC client (TigerVNC, RealVNC, etc.)
+Tool installation and general requirements are maintained in shared
+repository documentation:
 
-## 5. Installation
+- [`../../../../INSTALL.md`](../../../../INSTALL.md)
+- [`../../../../README.md`](../../../../README.md)
+- [`../../../../USO.md`](../../../../USO.md)
+
+## 5. Scenario setup
 
 From `kathara_migration_p2_2`:
 

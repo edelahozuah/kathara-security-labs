@@ -41,7 +41,8 @@ Este material soporta dos modalidades de uso:
 ### 👨‍🏫 Docentes (Plataforma Centralizada)
 - **Escenario**: Servidor compartido en laboratorio/departamento
 - **VPN**: ✅ **SÍ** - Usa WireGuard para acceso remoto seguro
-- **Guía**: Ver [`USO.md`](USO.md)
+- **Guía por perfil**: [`USO.md`](USO.md)
+- **Despliegue centralizado (scripts 00-09)**: [`despliegue-docente/docs/DESPLIEGUE_DOCENTE.md`](despliegue-docente/docs/DESPLIEGUE_DOCENTE.md)
 
 ### 👨‍🎓 Estudiantes (Equipo Local)
 - **Escenario**: Laptop/PC personal
@@ -72,6 +73,11 @@ practicaX/
 ├── escenario2/
 │   └── ...
 └── ...
+
+despliegue-docente/
+├── scripts/           # Automatización para despliegue masivo docente
+├── config/            # Asignación de puertos, IPs y parámetros por grupo
+└── docs/              # Guía operativa del despliegue centralizado
 ```
 
 ### Prácticas disponibles
@@ -99,7 +105,9 @@ cd practica2/escenario1/kathara
 ### Documentación general del repositorio
 
 - **[USO.md](USO.md)** - Guía por perfil (docente vs estudiante) ⚡ **Importante**
-- **[practica3/escenario1/kathara/docs/INSTALL.md](practica3/escenario1/kathara/docs/INSTALL.md)** - Instalación de Kathara
+- **[INSTALL.md](INSTALL.md)** - Referencia de instalación (apunta a documentación oficial)
+- **[Kathara Installation Guides](https://github.com/KatharaFramework/Kathara/wiki/Installation-Guides)** - Guía oficial de instalación
+- **[despliegue-docente/docs/DESPLIEGUE_DOCENTE.md](despliegue-docente/docs/DESPLIEGUE_DOCENTE.md)** - Despliegue docente centralizado
 
 ### Documentación por escenario
 
@@ -112,6 +120,6 @@ Cada escenario incluye documentación específica en su carpeta `kathara/docs/`:
 
 ## Requisitos
 
-- **[Kathara](practica3/escenario1/kathara/docs/INSTALL.md)** - Ver guía de instalación
+- **[Kathara](https://github.com/KatharaFramework/Kathara/wiki/Installation-Guides)** - Ver guía oficial de instalación
 - **Docker** - Docker Desktop (macOS/Windows) o Docker Engine (Linux)
 - **WireGuard** - Solo para docentes en modo centralizado (ver [USO.md](USO.md))
