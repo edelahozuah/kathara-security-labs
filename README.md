@@ -41,14 +41,14 @@ Este material soporta dos modalidades de uso:
 ### 👨‍🏫 Docentes (Plataforma Centralizada)
 - **Escenario**: Servidor compartido en laboratorio/departamento
 - **VPN**: ✅ **SÍ** - Usa WireGuard para acceso remoto seguro
-- **Guía**: Ver [`practica3/escenario1/kathara/docs/USO.md`](practica3/escenario1/kathara/docs/USO.md)
+- **Guía**: Ver [`USO.md`](USO.md)
 
 ### 👨‍🎓 Estudiantes (Equipo Local)
 - **Escenario**: Laptop/PC personal
 - **VPN**: ❌ **NO** - Accede directamente por localhost (sin VPN)
-- **Guía**: Ver [`practica3/escenario1/kathara/docs/USO.md`](practica3/escenario1/kathara/docs/USO.md)
+- **Guía**: Ver [`USO.md`](USO.md)
 
-📖 **Documentación completa de uso por perfil**: [`docs/USO.md`](practica3/escenario1/kathara/docs/USO.md)
+📖 **Documentación completa de uso por perfil**: [`USO.md`](USO.md)
 
 ---
 
@@ -96,16 +96,22 @@ cd practica2/escenario1/kathara
 
 ## 📚 Documentación / Documentation
 
-Cada escenario incluye documentación detallada en su carpeta `kathara/docs/`:
+### Documentación general del repositorio
 
-- **[USO.md](practica3/escenario1/kathara/docs/USO.md)** - Guía por perfil (docente vs estudiante) ⚡ **Importante**
-- **[INSTALL.md](practica3/escenario1/kathara/docs/INSTALL.md)** - Instalación de Kathara
-- **[QUICKSTART.md](practica3/escenario1/kathara/docs/QUICKSTART.md)** - Inicio rápido
-- **[README.md](practica3/escenario1/kathara/docs/README.md)** - Guía completa del escenario
-- **[EXAMPLES.md](practica3/escenario1/kathara/docs/EXAMPLES.md)** - Ejemplos de ataques MITM
+- **[USO.md](USO.md)** - Guía por perfil (docente vs estudiante) ⚡ **Importante**
+- **[practica3/escenario1/kathara/docs/INSTALL.md](practica3/escenario1/kathara/docs/INSTALL.md)** - Instalación de Kathara
+
+### Documentación por escenario
+
+Cada escenario incluye documentación específica en su carpeta `kathara/docs/`:
+
+- **practica3/escenario1/kathara/docs/**:
+  - [README.md](practica3/escenario1/kathara/docs/README.md) - Guía completa del escenario
+  - [QUICKSTART.md](practica3/escenario1/kathara/docs/QUICKSTART.md) - Inicio rápido
+  - [EXAMPLES.md](practica3/escenario1/kathara/docs/EXAMPLES.md) - Ejemplos de ataques MITM
 
 ## Requisitos
 
 - **[Kathara](practica3/escenario1/kathara/docs/INSTALL.md)** - Ver guía de instalación
 - **Docker** - Docker Desktop (macOS/Windows) o Docker Engine (Linux)
-- **WireGuard** - Solo para docentes en modo centralizado (ver [USO.md](practica3/escenario1/kathara/docs/USO.md))
+- **WireGuard** - Solo para docentes en modo centralizado (ver [USO.md](USO.md))

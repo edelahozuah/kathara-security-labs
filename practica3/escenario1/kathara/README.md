@@ -12,13 +12,13 @@ and graphical desktop on victim via VNC.
 
 ## ⚠️ IMPORTANTE: ¿Docente o Estudiante? / Teacher or Student?
 
-**Antes de comenzar, lee:** [`docs/USO.md`](docs/USO.md)
+**Antes de comenzar, lee:** [`../../USO.md`](../../USO.md) (guía general del repositorio)
 
 Este escenario soporta dos modos de uso principales:
 - **👨‍🏫 Docente** (plataforma centralizada): Usa VPN (WireGuard) para acceso remoto seguro
 - **👨‍🎓 Estudiante** (equipo local): **NO uses VPN**, accede directamente por localhost
 
-📖 **Ver guía completa:** [`docs/USO.md`](docs/USO.md) - Explica cuándo usar cada modo con diagramas y ejemplos.
+📖 **Ver guía completa:** [`../../USO.md`](../../USO.md) - Explica cuándo usar cada modo con diagramas y ejemplos.
 
 ---
 
@@ -117,7 +117,7 @@ kathara exec -d "$(pwd)" atacante "nmap -sP 192.168.0.0/24"
 
 ### 📚 Guías principales / Main guides
 - **Instalación de Kathara:** `docs/INSTALL.md` ⭐ **Empezar aquí si es primera vez**
-- **¿Cómo usar este escenario? Docente vs Estudiante:** `docs/USO.md` ⚡ **Lee esto para saber si usar VPN**
+- **¿Cómo usar este escenario? Docente vs Estudiante:** [`../../USO.md`](../../USO.md) ⚡ **Lee esto para saber si usar VPN**
 - Docs index: `docs/INDEX.md`
 - Full guide: `docs/README.md`
 - Quick commands: `docs/QUICKSTART.md`
