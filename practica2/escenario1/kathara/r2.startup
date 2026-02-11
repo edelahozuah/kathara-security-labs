@@ -1,0 +1,19 @@
+#!/bin/bash
+# r2: Router con 2 interfaces
+# Net1: 10.1.1.2/24, Net2: 10.1.2.1/24
+
+# Configuración de interfaces
+ip addr flush dev eth0
+ip addr flush dev eth1
+ip addr add 10.1.1.2/24 dev eth0
+ip addr add 10.1.2.1/24 dev eth1
+ip link set eth0 up
+ip link set eth1 up
+
+# Verificar forwarding IP
+if [ "$(cat /proc/sys/net/ipv4/ip_forward)" != "1" ]; then
+  echo "WARNING: net.ipv4.ip_forward no esta habilitado en r2" >&2
+fi
+
+# Ruta por defecto via r1
+ip route replace default via 10.1.1.1 dev eth0

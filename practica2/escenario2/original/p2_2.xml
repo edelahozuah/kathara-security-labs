@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+
+Kali Linux
+Ubuntu
+Ubuntu-gui (bien a través de lubuntu o de ubuntu-gui)
+
+Área de Ingeniería Telemática. Universidad de Alcalá
+SPAIN
+
+-->
+
+<vnx xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:noNamespaceSchemaLocation="/usr/share/xml/vnx/vnx-2.00.xsd">
+  <global>
+    <version>2.0</version>
+    <scenario_name>Practica2_2</scenario_name>
+    <automac/>
+    <vm_mgmt type="none" />
+    <vm_defaults>
+	    <console id="0" display="yes"/>
+	    <console id="1" display="no"/>
+    </vm_defaults>
+  </global>
+
+  <net name="LAN" mode="virtual_bridge" /> 
+  <net name="br0" mode="virtual_bridge"/>
+
+ <!--Segmento LAN interna: 10.0.0.0/24 Hosts Víctima, Atacante y servidor DNS-->
+  <vm name="Victima" type="libvirt" subtype="kvm" os="linux">
+  	
+  	 <filesystem type="cow">/usr/share/vnx/filesystems/rootfs_ubuntu_gui</filesystem>
+  	
+  	<!--<filesystem type="cow">/usr/share/vnx/filesystems/rootfs_ubuntugui</filesystem> -->
+    	<mem>512M</mem>
+    	<video>vmvga</video>
+    	<if id="1" net="LAN">
+      		<ipv4>192.168.0.2/24</ipv4>
+    	</if>
+    	<route type="ipv4" gw="192.168.0.1">default</route>
+	<!-- Cofniguramos los DNS en esa máquina-->
+	<!--Para Ubuntu 12.04+-->
+<!-- Cofniguramos los DNS en esa máquina-->
+	<exec seq="on_boot" type="verbatim" ostype="system">
+	echo "nameserver 192.168.153.140">>//etc/resolv.conf</exec>
+</vm>
+
+<vm name="Atacante" type="libvirt" subtype="kvm" os="linux">
+	<filesystem type="cow">/usr/share/vnx/filesystems/rootfs_kali</filesystem>
+	<mem>2G</mem>
+	<video>vmvga</video>
+	<if id="1" net="LAN">
+		<ipv4>192.168.0.3/24</ipv4>
+	</if>
+	<route type="ipv4" gw="192.168.0.1">default</route>
+	<!-- Cofniguramos los DNS en esa máquina-->
+	<exec seq="on_boot" type="verbatim" ostype="system">
+	echo "nameserver 192.168.153.140">>//etc/resolv.conf</exec>
+</vm>
+
+
+<!--Router de la LAN-->
+<vm name="Router" type="libvirt" subtype="kvm" os="linux">
+	<filesystem type="cow">/usr/share/vnx/filesystems/rootfs_ubuntu-gui</filesystem>
+	<mem>128M</mem>
+	<console id="0" display="no"/>
+	    <console id="1" display="yes"/>
+	<if id="1" net="LAN">
+		<ipv4>192.168.0.1/24</ipv4>
+	</if>
+	<if id="2" net="br0">
+		<!-- Debe usarse una dirección válida de la red LAN en la que estemos-->
+<!-- En el lab 11 debería ser 10.0.11.2XX donde XX es el numero de puesto.Máscara /21-->		
+<ipv4>10.0.11.2XX/21</ipv4>
+	</if>
+	  <!-- Esta debe ser la dirección del gateway de la red en que nos encontremos, p.e. 192.168.1.1-->
+<!-- En el lab debe ser 10.0.8.1-->	
+<route type="ipv4" gw="10.0.8.2">default</route>
+	<forwarding type="ip" />
+<!-- Configuración del NAT para configurar la salida a Internet-->	
+<exec seq="on_boot" type="verbatim" ostype="system">iptables -t nat -A POSTROUTING -j MASQUERADE -o eth2</exec>
+<exec seq="on_boot" type="verbatim" ostype="system">
+	echo "nameserver 192.168.153.140">>//etc/resolv.conf</exec>
+</vm>
+<host>
+    <hostif net="LAN">
+       <ipv4>192.168.0.4/24</ipv4>
+    </hostif>
+  </host>
+
+
+</vnx>

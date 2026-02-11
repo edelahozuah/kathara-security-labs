@@ -1,0 +1,50 @@
+# Dockerfile.desktop estandarizado
+# Compatible con p2_2 y p3
+
+FROM kathara/base
+
+ENV DEBIAN_FRONTEND=noninteractive
+ENV USER=root
+ENV HOME=/root
+
+RUN printf 'wireshark-common wireshark-common/install-setuid boolean false\n' | debconf-set-selections && \
+    apt-get update && apt-get install -y --no-install-recommends \
+    # X11 and VNC (moderno)
+    tigervnc-standalone-server \
+    tigervnc-viewer \
+    # Desktop environment (metapaquete completo)
+    lxqt \
+    openbox \
+    # Basic utilities
+    qterminal \
+    pcmanfm-qt \
+    featherpad \
+    # Browser y herramientas de análisis
+    firefox-esr \
+    wireshark \
+    # Network tools
+    net-tools \
+    iputils-ping \
+    curl \
+    wget \
+    dnsutils \
+    # System tools
+    dbus-x11 \
+    procps \
+    htop \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
+
+# Set VNC password
+RUN mkdir -p /root/.vnc && \
+    echo "password" | vncpasswd -f > /root/.vnc/passwd && \
+    chmod 600 /root/.vnc/passwd
+
+# Configure xstartup (simplificado y robusto)
+RUN echo '#!/bin/bash\n\
+unset SESSION_MANAGER\n\
+unset DBUS_SESSION_BUS_ADDRESS\n\
+exec startlxqt' > /root/.vnc/xstartup && \
+    chmod +x /root/.vnc/xstartup
+
+EXPOSE 5901

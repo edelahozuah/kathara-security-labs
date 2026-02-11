@@ -1,0 +1,57 @@
+FROM kathara/base
+
+ENV DEBIAN_FRONTEND=noninteractive
+
+# Instalar dependencias básicas y repositorio Kali
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    gnupg ca-certificates wget curl \
+    && apt-get clean && rm -rf /var/lib/apt/lists/*
+
+# Añadir repo Kali y su clave GPG
+RUN echo "deb http://http.kali.org/kali kali-rolling main non-free contrib" > /etc/apt/sources.list.d/kali.list && \
+    wget -q -O - https://archive.kali.org/archive-key.asc | apt-key add -
+
+# Actualizar con repos de Kali e instalar herramientas disponibles
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    # Bettercap (incluye UI web integrada)
+    bettercap \
+    # Ettercap
+    ettercap-common \
+    ettercap-graphical \
+    # ARP spoofing
+    dsniff \
+    # Análisis de red
+    tcpdump \
+    tshark \
+    wireshark-common \
+    # Herramientas de red
+    net-tools \
+    iputils-ping \
+    curl \
+    wget \
+    netcat-openbsd \
+    nmap \
+    # Sistema
+    procps \
+    iproute2 \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
+
+# Instalar mitmproxy y dependencias Python (no siempre está en repos Kali)
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    python3 \
+    python3-pip \
+    python3-dev \
+    libffi-dev \
+    libssl-dev \
+    && pip3 install --no-cache-dir mitmproxy \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
+
+# Verificar instalaciones
+RUN which bettercap && bettercap --version && \
+    which ettercap && \
+    which tcpdump && \
+    which nmap
+
+EXPOSE 80 443 8080 8443

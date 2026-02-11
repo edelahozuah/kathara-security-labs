@@ -1,0 +1,51 @@
+FROM kathara/base
+
+ENV DEBIAN_FRONTEND=noninteractive
+
+# Instalar LXQt (escritorio ligero de Lubuntu) y VNC
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+    lxqt-core \
+    lxqt-panel \
+    lxqt-session \
+    lxqt-config \
+    lxqt-themes \
+    openbox \
+    pcmanfm-qt \
+    qterminal \
+    featherpad \
+    firefox-esr \
+    dbus-x11 \
+    adwaita-icon-theme \
+    xdg-utils \
+    xfonts-base \
+    tightvncserver \
+    xterm \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
+
+# Configurar VNC
+RUN mkdir -p /root/.vnc && \
+    echo "password" | vncpasswd -f > /root/.vnc/passwd && \
+    chmod 600 /root/.vnc/passwd
+
+# Script de inicio VNC con sesión LXQt
+RUN cat > /root/.vnc/xstartup <<'EOF' && \
+    chmod +x /root/.vnc/xstartup
+#!/bin/bash
+unset SESSION_MANAGER
+unset DBUS_SESSION_BUS_ADDRESS
+
+export XDG_RUNTIME_DIR="${XDG_RUNTIME_DIR:-/tmp/runtime-root}"
+mkdir -p "${XDG_RUNTIME_DIR}"
+chmod 700 "${XDG_RUNTIME_DIR}"
+
+if command -v dbus-launch >/dev/null 2>&1; then
+  exec dbus-launch --exit-with-session startlxqt
+fi
+
+exec startlxqt
+EOF
+
+# Puerto VNC
+EXPOSE 5901

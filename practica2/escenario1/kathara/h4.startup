@@ -1,0 +1,9 @@
+#!/bin/bash
+# h4: Host simple
+# IP: 10.1.2.3/24, Gateway: 10.1.2.1
+
+# Configuración de red
+ip addr flush dev eth0
+ip addr add 10.1.2.3/24 dev eth0
+ip link set eth0 up
+ip route replace default via 10.1.2.1 dev eth0

@@ -1,0 +1,17 @@
+# macOS
+.DS_Store
+
+# Original directories (we only want the copied ones in practicaX/)
+escenariosP2/
+escenariosP3/
+
+# Archives
+*.zip
+
+# IDE
+.vscode/
+.idea/
+
+# Temporary files
+*.tmp
+*.log
