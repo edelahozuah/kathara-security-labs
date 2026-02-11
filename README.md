@@ -32,6 +32,26 @@ La IA ha contribuido a:
 
 El profesorado ha supervisado, validado y adaptado todo el contenido para garantizar su adecuación pedagógica y técnica.
 
+## 📋 Uso del Repositorio / Repository Usage
+
+**⚠️ IMPORTANTE: ¿Docente o Estudiante?**
+
+Este material soporta dos modalidades de uso:
+
+### 👨‍🏫 Docentes (Plataforma Centralizada)
+- **Escenario**: Servidor compartido en laboratorio/departamento
+- **VPN**: ✅ **SÍ** - Usa WireGuard para acceso remoto seguro
+- **Guía**: Ver [`practica3/escenario1/kathara/docs/USO.md`](practica3/escenario1/kathara/docs/USO.md)
+
+### 👨‍🎓 Estudiantes (Equipo Local)
+- **Escenario**: Laptop/PC personal
+- **VPN**: ❌ **NO** - Accede directamente por localhost (sin VPN)
+- **Guía**: Ver [`practica3/escenario1/kathara/docs/USO.md`](practica3/escenario1/kathara/docs/USO.md)
+
+📖 **Documentación completa de uso por perfil**: [`docs/USO.md`](practica3/escenario1/kathara/docs/USO.md)
+
+---
+
 ## Descripción
 
 Este repositorio contiene los escenarios de red empleados en las prácticas de laboratorio, migrados desde la plataforma de emulación **VNX** a **Kathara**.
@@ -55,8 +75,18 @@ cd practica2/escenario1/kathara
 ./stop-lab.sh
 ```
 
+## 📚 Documentación / Documentation
+
+Cada escenario incluye documentación detallada en su carpeta `kathara/docs/`:
+
+- **[USO.md](practica3/escenario1/kathara/docs/USO.md)** - Guía por perfil (docente vs estudiante) ⚡ **Importante**
+- **[INSTALL.md](practica3/escenario1/kathara/docs/INSTALL.md)** - Instalación de Kathara
+- **[QUICKSTART.md](practica3/escenario1/kathara/docs/QUICKSTART.md)** - Inicio rápido
+- **[README.md](practica3/escenario1/kathara/docs/README.md)** - Guía completa del escenario
+- **[EXAMPLES.md](practica3/escenario1/kathara/docs/EXAMPLES.md)** - Ejemplos de ataques MITM
+
 ## Requisitos
 
-- Kathara
-- Docker
-- WireGuard (para escenarios con VPN)
+- **[Kathara](practica3/escenario1/kathara/docs/INSTALL.md)** - Ver guía de instalación
+- **Docker** - Docker Desktop (macOS/Windows) o Docker Engine (Linux)
+- **WireGuard** - Solo para docentes en modo centralizado (ver [USO.md](practica3/escenario1/kathara/docs/USO.md))
