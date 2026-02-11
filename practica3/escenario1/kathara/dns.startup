@@ -1,0 +1,30 @@
+#!/bin/bash
+set -e
+
+# Configurar red
+ip addr flush dev eth0
+ip addr add "${DNS_IP:-192.168.0.53/24}" dev eth0
+ip link set eth0 up
+ip route replace default via "${DNS_LAN_GW:-192.168.0.1}" dev eth0
+
+echo ""
+echo "========================================"
+echo "    SERVIDOR DNS (dnsmasq) INICIADO"
+echo "========================================"
+echo "IP: ${DNS_IP:-192.168.0.53}"
+echo "Puerto: 53/udp (DNS)"
+echo ""
+echo "Configuración:"
+echo "  - Forward a: 8.8.8.8, 8.8.4.4"
+echo "  - Cache: 1000 entradas"
+echo "  - Log: stdout (visible con 'docker logs')"
+echo ""
+echo "Uso en nodos:"
+echo "  echo 'nameserver 192.168.0.53' > /etc/resolv.conf"
+echo ""
+echo "Test: nslookup google.com 192.168.0.53"
+echo "========================================"
+echo ""
+
+# Verificar configuración
+cat /etc/dnsmasq.conf | grep -v "^#" | grep -v "^$" | head -10

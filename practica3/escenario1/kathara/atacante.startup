@@ -7,13 +7,27 @@ ip addr add "${ATACANTE_CIDR:-192.168.0.3/24}" dev eth0
 ip link set eth0 up
 ip route replace default via "${LAN_GW:-192.168.0.1}" dev eth0
 
-# Configure DNS
-echo "nameserver 8.8.8.8" > /etc/resolv.conf
-echo "nameserver 8.8.4.4" >> /etc/resolv.conf
+# Configure DNS (servidor DNS local)
+echo "nameserver 192.168.0.53" > /etc/resolv.conf
+echo "nameserver 8.8.8.8" >> /etc/resolv.conf  # Backup DNS
 
 # Configure X11 forwarding
 export DISPLAY=${DISPLAY:-:0}
 
-echo "Kali Linux con Bettercap listo."
-echo "Bettercap UI: http://192.168.0.3 (accesible desde VPN)"
-echo "Comandos disponibles: bettercap, ettercap, arpspoof, tcpdump, tshark, mitmproxy"
+echo ""
+echo "========================================"
+echo "KALI LINUX - HERRAMIENTAS DISPONIBLES"
+echo "========================================"
+echo "DNS: Usando servidor local (192.168.0.53)"
+echo ""
+echo "Herramientas disponibles:"
+echo "  - tcpdump    - Captura de tráfico"
+echo "  - tshark     - Análisis Wireshark CLI"
+echo "  - nmap       - Escaneo de red"
+echo "  - arping     - ARP spoofing"
+echo "  - curl/wget  - Clientes HTTP"
+echo ""
+echo "Test DNS:"
+echo "  nslookup google.com"
+echo "  nslookup google.com 192.168.0.53"
+echo "========================================"

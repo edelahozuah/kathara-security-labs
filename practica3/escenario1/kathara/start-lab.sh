@@ -67,6 +67,14 @@ else
     echo "  ✓ kathara-kali existe"
 fi
 
+# NUEVO: Verificar/Construir imagen DNS
+if ! docker image inspect kathara-dns &>/dev/null; then
+    echo "  - Construyendo kathara-dns (Alpine + dnsmasq)..."
+    docker build -t kathara-dns -f Dockerfile.dns .
+else
+    echo "  ✓ kathara-dns existe"
+fi
+
 # Prepare shared directory
 mkdir -p shared/vpn
 chmod 755 shared/vpn
@@ -153,13 +161,13 @@ if [[ "$CLI_ONLY" == false ]]; then
     echo "  - Endpoint: ${HOST_IP}:${WG_ENDPOINT_PORT}"
     echo "  - VNC Server: 192.168.0.2:5901"
     echo "  - VNC Password: password"
-    echo "  - Bettercap UI: http://192.168.0.3 (desde VPN)"
+    echo "  - DNS Server: 192.168.0.53 (todos los nodos lo usan)"
     echo ""
     echo "Para conectar:"
     echo "  1. Importa ./shared/vpn/student1.conf en tu cliente WireGuard"
     echo "  2. Activa el tunel VPN"
     echo "  3. Conecta VNC a 192.168.0.2:5901"
-    echo "  4. Accede a Bettercap UI en http://192.168.0.3"
+    echo "  4. Test DNS: nslookup google.com 192.168.0.53"
     echo ""
 fi
 

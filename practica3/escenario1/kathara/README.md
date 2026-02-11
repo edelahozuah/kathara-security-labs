@@ -20,6 +20,7 @@ cd practica3/escenario1/kathara
 docker build -t kathara-vpn -f Dockerfile.vpn .
 docker build -t kathara-desktop -f Dockerfile.desktop .
 docker build -t kathara-kali -f Dockerfile.kali .
+docker build -t kathara-dns -f Dockerfile.dns .
 
 chmod +x start-lab.sh stop-lab.sh verify.sh
 ./start-lab.sh
@@ -37,7 +38,28 @@ chmod +x start-lab.sh stop-lab.sh verify.sh
 - WireGuard client config: `./shared/vpn/student1.conf`
 - VNC desktop (víctima): `192.168.0.2:5901`
 - VNC password: `password`
+- DNS Server: `192.168.0.53` (todos los nodos usan este servidor DNS)
 - Atacante CLI: Herramientas de pentesting disponibles (ver lista abajo)
+
+## DNS Server / Servidor DNS
+
+El escenario incluye un servidor DNS local (Alpine + dnsmasq) en `192.168.0.53`:
+
+- **Forward**: Reenvía consultas a 8.8.8.8 y 8.8.4.4
+- **Cache**: 1000 entradas para mejorar rendimiento
+- **Uso**: Todos los nodos (víctima, atacante) usan este DNS automáticamente
+- **Backup**: 8.8.8.8 configurado como DNS secundario
+
+### Verificar funcionamiento DNS
+
+```bash
+# Desde cualquier nodo
+nslookup google.com
+nslookup google.com 192.168.0.53
+
+# Ver logs del servidor DNS
+kathara exec -d "$(pwd)" dns "cat /var/log/dnsmasq.log"
+```
 
 ## Tools Available / Herramientas Disponibles
 

@@ -1,0 +1,26 @@
+FROM alpine:latest
+
+LABEL maintainer="Kathara Security Labs"
+LABEL description="DNS server with dnsmasq for MITM HTTP lab"
+
+# Instalar dnsmasq
+RUN apk add --no-cache dnsmasq
+
+# Configuración dnsmasq
+RUN echo "# Configuración DNS para práctica MITM HTTP" > /etc/dnsmasq.conf && \
+    echo "port=53" >> /etc/dnsmasq.conf && \
+    echo "interface=eth0" >> /etc/dnsmasq.conf && \
+    echo "bind-interfaces" >> /etc/dnsmasq.conf && \
+    echo "listen-address=127.0.0.1,192.168.0.53" >> /etc/dnsmasq.conf && \
+    echo "server=8.8.8.8" >> /etc/dnsmasq.conf && \
+    echo "server=8.8.4.4" >> /etc/dnsmasq.conf && \
+    echo "cache-size=1000" >> /etc/dnsmasq.conf && \
+    echo "no-resolv" >> /etc/dnsmasq.conf && \
+    echo "no-poll" >> /etc/dnsmasq.conf && \
+    echo "log-queries" >> /etc/dnsmasq.conf && \
+    echo "log-facility=-" >> /etc/dnsmasq.conf && \
+    echo "# DNS local para escenario MITM HTTP" >> /etc/dnsmasq.conf
+
+EXPOSE 53/udp 53/tcp
+
+ENTRYPOINT ["dnsmasq", "-k", "--log-facility=-"]
