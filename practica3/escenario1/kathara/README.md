@@ -10,13 +10,25 @@ Cybersecurity scenario for Man-in-the-Middle attack practice over HTTP.
 Attacker-victim LAN, Internet egress via NAT, remote access through WireGuard,
 and graphical desktop on victim via VNC.
 
+## ⚠️ IMPORTANTE: ¿Docente o Estudiante? / Teacher or Student?
+
+**Antes de comenzar, lee:** [`docs/USO.md`](docs/USO.md)
+
+Este escenario soporta dos modos de uso principales:
+- **👨‍🏫 Docente** (plataforma centralizada): Usa VPN (WireGuard) para acceso remoto seguro
+- **👨‍🎓 Estudiante** (equipo local): **NO uses VPN**, accede directamente por localhost
+
+📖 **Ver guía completa:** [`docs/USO.md`](docs/USO.md) - Explica cuándo usar cada modo con diagramas y ejemplos.
+
+---
+
 ## Requisitos / Requirements
 
 Antes de usar este escenario, asegúrate de tener instalado:
 
 - **[Kathara Framework](docs/INSTALL.md)** - Ver guía de instalación detallada
 - **Docker** - Docker Desktop (macOS/Windows) o Docker Engine (Linux)
-- **WireGuard** (solo si usas modo VPN) - Cliente VPN
+- **WireGuard** (⚠️ **solo docentes** en modo centralizado) - Cliente VPN
 
 ## Quick Start / Inicio Rápido
 
@@ -105,6 +117,7 @@ kathara exec -d "$(pwd)" atacante "nmap -sP 192.168.0.0/24"
 
 ### 📚 Guías principales / Main guides
 - **Instalación de Kathara:** `docs/INSTALL.md` ⭐ **Empezar aquí si es primera vez**
+- **¿Cómo usar este escenario? Docente vs Estudiante:** `docs/USO.md` ⚡ **Lee esto para saber si usar VPN**
 - Docs index: `docs/INDEX.md`
 - Full guide: `docs/README.md`
 - Quick commands: `docs/QUICKSTART.md`
