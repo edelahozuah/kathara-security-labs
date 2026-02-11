@@ -2,56 +2,96 @@ FROM kathara/base
 
 ENV DEBIAN_FRONTEND=noninteractive
 
-# Instalar dependencias básicas y repositorio Kali
-RUN apt-get update && apt-get install -y --no-install-recommends \
-    gnupg ca-certificates wget curl \
-    && apt-get clean && rm -rf /var/lib/apt/lists/*
+# Detectar arquitectura y seleccionar descarga apropiada
+ARG TARGETARCH
+ARG TARGETVARIANT
 
-# Añadir repo Kali y su clave GPG
-RUN echo "deb http://http.kali.org/kali kali-rolling main non-free contrib" > /etc/apt/sources.list.d/kali.list && \
-    wget -q -O - https://archive.kali.org/archive-key.asc | apt-key add -
+RUN echo "Building for architecture: ${TARGETARCH}${TARGETVARIANT:+${TARGETVARIANT}}"
 
-# Actualizar con repos de Kali e instalar herramientas disponibles
-RUN apt-get update && apt-get install -y --no-install-recommends \
-    # Bettercap (incluye UI web integrada)
-    bettercap \
-    # Ettercap
-    ettercap-common \
-    ettercap-graphical \
-    # ARP spoofing
-    dsniff \
-    # Análisis de red
+# Instalar herramientas básicas disponibles en todos los repos Debian
+RUN apt-get update --fix-missing && apt-get install -y --no-install-recommends \
     tcpdump \
     tshark \
     wireshark-common \
-    # Herramientas de red
+    nmap \
+    netcat-openbsd \
     net-tools \
     iputils-ping \
     curl \
     wget \
-    netcat-openbsd \
-    nmap \
-    # Sistema
     procps \
     iproute2 \
-    && apt-get clean \
-    && rm -rf /var/lib/apt/lists/*
-
-# Instalar mitmproxy y dependencias Python (no siempre está en repos Kali)
-RUN apt-get update && apt-get install -y --no-install-recommends \
+    ca-certificates \
     python3 \
     python3-pip \
-    python3-dev \
-    libffi-dev \
-    libssl-dev \
-    && pip3 install --no-cache-dir mitmproxy \
+    libpcap-dev \
+    libnetfilter-queue-dev \
+    iputils-arping \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
+# Intentar instalar ettercap (puede no estar en todos los repos)
+RUN apt-get update --fix-missing && apt-get install -y --no-install-recommends \
+    ettercap-common \
+    ettercap-text-only \
+    2>/dev/null || echo "⚠ Ettercap no disponible temporalmente"
+
+# Intentar instalar dsniff
+RUN apt-get update --fix-missing && apt-get install -y --no-install-recommends \
+    dsniff \
+    2>/dev/null || echo "⚠ Dsniff no disponible temporalmente"
+
+# Descargar bettercap según arquitectura
+RUN set -e; \
+    ARCH=$(dpkg --print-architecture); \
+    echo "Detectada arquitectura: $ARCH"; \
+    case "$ARCH" in \
+        amd64|x86_64) \
+            BETTERCAP_URL="https://github.com/bettercap/bettercap/releases/download/v2.31.1/bettercap_linux_amd64_v2.31.1.zip"; \
+            ;; \
+        arm64|aarch64) \
+            BETTERCAP_URL="https://github.com/bettercap/bettercap/releases/download/v2.31.1/bettercap_linux_arm64_v2.31.1.zip"; \
+            ;; \
+        *) \
+            echo "⚠ Arquitectura $ARCH no soportada para bettercap"; \
+            BETTERCAP_URL=""; \
+            ;; \
+    esac; \
+    if [ -n "$BETTERCAP_URL" ]; then \
+        echo "Descargando bettercap desde: $BETTERCAP_URL"; \
+        if curl -L -o /tmp/bettercap.zip "$BETTERCAP_URL" 2>/dev/null; then \
+            if unzip -t /tmp/bettercap.zip >/dev/null 2>&1; then \
+                unzip -o /tmp/bettercap.zip -d /usr/local/bin/; \
+                chmod +x /usr/local/bin/bettercap; \
+                rm /tmp/bettercap.zip; \
+                echo "✓ Bettercap instalado correctamente"; \
+                bettercap --version; \
+            else \
+                echo "⚠ El archivo descargado no es un ZIP válido"; \
+                rm -f /tmp/bettercap.zip; \
+            fi; \
+        else \
+            echo "⚠ No se pudo descargar bettercap"; \
+        fi; \
+    fi
+
+# Instalar mitmproxy
+RUN pip3 install --no-cache-dir mitmproxy 2>/dev/null || \
+    echo "⚠ Mitmproxy no pudo instalarse"
+
 # Verificar instalaciones
-RUN which bettercap && bettercap --version && \
-    which ettercap && \
-    which tcpdump && \
-    which nmap
+RUN echo "========================================"; \
+    echo "RESUMEN DE ARQUITECTURA Y HERRAMIENTAS"; \
+    echo "========================================"; \
+    echo "Arquitectura: $(dpkg --print-architecture)"; \
+    echo "----------------------------------------"; \
+    (which ettercap && echo "✓ Ettercap" || echo "✗ Ettercap"); \
+    (which tcpdump && echo "✓ Tcpdump" || echo "✗ Tcpdump"); \
+    (which tshark && echo "✓ Tshark" || echo "✗ Tshark"); \
+    (which nmap && echo "✓ Nmap" || echo "✗ Nmap"); \
+    (which arping && echo "✓ Arping" || echo "✗ Arping"); \
+    (which bettercap && echo "✓ Bettercap" || echo "✗ Bettercap"); \
+    (which mitmproxy && echo "✓ Mitmproxy" || echo "✗ Mitmproxy"); \
+    echo "========================================"
 
 EXPOSE 80 443 8080 8443
