@@ -19,6 +19,19 @@ Repositorio de prácticas de laboratorio de la asignatura **Seguridad** para los
 
 **Enrique de la Hoz** - Profesor de la Universidad de Alcalá
 
+## 🤖 Nota sobre el Uso de Herramientas de IA
+
+Este material educativo ha sido desarrollado empleando **opencode**, una herramienta de asistencia por IA que integra múltiples modelos de lenguaje (Claude, GPT-4, etc.).
+
+La IA ha contribuido a:
+- Migrar escenarios de VNX a Kathara
+- Estandarizar configuraciones multi-arquitectura (x86_64/ARM64)
+- Generar documentación técnica completa (guías, ejemplos, troubleshooting)
+- Optimizar Dockerfiles para compatibilidad multi-plataforma
+- Crear scripts de automatización y verificación
+
+El profesorado ha supervisado, validado y adaptado todo el contenido para garantizar su adecuación pedagógica y técnica.
+
 ## Descripción
 
 Este repositorio contiene los escenarios de red empleados en las prácticas de laboratorio, migrados desde la plataforma de emulación **VNX** a **Kathara**.
