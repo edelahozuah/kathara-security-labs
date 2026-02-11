@@ -10,6 +10,14 @@ Cybersecurity scenario for Man-in-the-Middle attack practice over HTTP.
 Attacker-victim LAN, Internet egress via NAT, remote access through WireGuard,
 and graphical desktop on victim via VNC.
 
+## Requisitos / Requirements
+
+Antes de usar este escenario, asegúrate de tener instalado:
+
+- **[Kathara Framework](docs/INSTALL.md)** - Ver guía de instalación detallada
+- **Docker** - Docker Desktop (macOS/Windows) o Docker Engine (Linux)
+- **WireGuard** (solo si usas modo VPN) - Cliente VPN
+
 ## Quick Start / Inicio Rápido
 
 ```bash
@@ -95,9 +103,13 @@ kathara exec -d "$(pwd)" atacante "nmap -sP 192.168.0.0/24"
 
 ## Documentation / Documentación
 
+### 📚 Guías principales / Main guides
+- **Instalación de Kathara:** `docs/INSTALL.md` ⭐ **Empezar aquí si es primera vez**
 - Docs index: `docs/INDEX.md`
 - Full guide: `docs/README.md`
 - Quick commands: `docs/QUICKSTART.md`
+
+### 🔧 Técnicas / Technical
 - Architecture: `docs/ARCHITECTURE.md`
 - Network details: `docs/NETWORK.md`
 - MITM examples: `docs/EXAMPLES.md`

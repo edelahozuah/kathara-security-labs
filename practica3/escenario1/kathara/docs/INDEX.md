@@ -1,11 +1,12 @@
 # Documentation Index / Índice de Documentación
 
-Navigation / Navegación: [Index](INDEX.md) | [Guide](README.md) | [Quickstart](QUICKSTART.md) | [Architecture](ARCHITECTURE.md) | [Network](NETWORK.md) | [Examples](EXAMPLES.md) | [Docker](DOCKER.md)
+Navigation / Navegación: [Index](INDEX.md) | [Install](INSTALL.md) | [Guide](README.md) | [Quickstart](QUICKSTART.md) | [Architecture](ARCHITECTURE.md) | [Network](NETWORK.md) | [Examples](EXAMPLES.md) | [Docker](DOCKER.md)
 
 ## Español
 
 ### Mapa rápido
 
+- **Instalación de Kathara:** `INSTALL.md` ⭐ **Empezar aquí**
 - Vista general del escenario: `README.md`
 - Arranque en 2 minutos: `QUICKSTART.md`
 - Arquitectura y flujos (VPN/VNC/MITM): `ARCHITECTURE.md`
@@ -15,6 +16,7 @@ Navigation / Navegación: [Index](INDEX.md) | [Guide](README.md) | [Quickstart](
 
 ### Según lo que necesitas
 
+- **Primera vez / Necesito instalar Kathara:** `INSTALL.md`
 - Quiero arrancar ya: `QUICKSTART.md`
 - Quiero entender cómo funciona todo: `README.md`
 - Quiero depurar conectividad: `NETWORK.md`
@@ -24,10 +26,11 @@ Navigation / Navegación: [Index](INDEX.md) | [Guide](README.md) | [Quickstart](
 
 ### Flujo recomendado
 
-1. `QUICKSTART.md`
-2. `README.md`
-3. `EXAMPLES.md` (prácticas MITM)
-4. `NETWORK.md`
+1. `INSTALL.md` (si es primera vez)
+2. `QUICKSTART.md`
+3. `README.md`
+4. `EXAMPLES.md` (prácticas MITM)
+5. `NETWORK.md`
 
 ---
 
@@ -35,6 +38,7 @@ Navigation / Navegación: [Index](INDEX.md) | [Guide](README.md) | [Quickstart](
 
 ### Quick map
 
+- **Kathara Installation:** `INSTALL.md` ⭐ **Start here**
 - Scenario overview: `README.md`
 - Start in 2 minutes: `QUICKSTART.md`
 - Architecture and flows (VPN/VNC/MITM): `ARCHITECTURE.md`
@@ -44,6 +48,7 @@ Navigation / Navegación: [Index](INDEX.md) | [Guide](README.md) | [Quickstart](
 
 ### By intent
 
+- **First time / I need to install Kathara:** `INSTALL.md`
 - I want to start now: `QUICKSTART.md`
 - I want full context: `README.md`
 - I need connectivity troubleshooting: `NETWORK.md`
@@ -53,7 +58,8 @@ Navigation / Navegación: [Index](INDEX.md) | [Guide](README.md) | [Quickstart](
 
 ### Suggested reading order
 
-1. `QUICKSTART.md`
-2. `README.md`
-3. `EXAMPLES.md` (MITM practices)
-4. `NETWORK.md`
+1. `INSTALL.md` (if first time)
+2. `QUICKSTART.md`
+3. `README.md`
+4. `EXAMPLES.md` (MITM practices)
+5. `NETWORK.md`
